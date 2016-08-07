@@ -1,5 +1,6 @@
 require_relative "../config/environment.rb"
 require 'active_support/inflector'
+require 'pry'
 
 class InteractiveRecord
 
@@ -14,6 +15,7 @@ class InteractiveRecord
 
     table_info = DB[:conn].execute(sql)
     column_names = []
+    # binding.pry
     table_info.each do |row|
       column_names << row["name"]
     end
@@ -33,11 +35,13 @@ class InteractiveRecord
   end
 
   def table_name_for_insert
+    # binding.pry
     self.class.table_name
   end
 
   def values_for_insert
     values = []
+    # binding.pry
     self.class.column_names.each do |col_name|
       values << "'#{send(col_name)}'" unless send(col_name).nil?
     end
